@@ -439,7 +439,7 @@ get_fn(char * const dest, char * const src, const char * const ext)
 	*dp = '\0';
 	if ((strrchr(dest, '.') == NULL) &&
 	    (strlen(dest) <= (PATH_MAX - strlen(ext))))
-		strlcat(dest, ext, sizeof(dest));
+		strlcat(dest, ext, PATH_MAX);
 }
 
 /*
