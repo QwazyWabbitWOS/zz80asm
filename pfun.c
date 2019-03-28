@@ -105,7 +105,7 @@ op_dl(void)
 }
 
 /*
- *	DEFS
+ *	DEFS/DS define space (bytes)
  */
 int
 op_ds(void)
@@ -126,7 +126,7 @@ op_ds(void)
 }
 
 /*
- *	DEFB
+ *	DEFB/DB define byte
  */
 int
 op_db(void)
@@ -204,7 +204,7 @@ op_dm(void)
 }
 
 /*
- *	DEFW
+ *	DEFW/DW define word
  */
 int
 op_dw(void)
