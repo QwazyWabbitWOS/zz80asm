@@ -54,7 +54,6 @@ static char	*errmsg[] = {		/* error messages for asmerr() */
 #define MAXHEX 255			/* max num of bytes per hex record */
 
 size_t		p_line;			/* no. printed lines on page */
-size_t		datalen;		/* number of bytes per hex record */
 
 static unsigned	short hex_adr;		/* current address in hex record */
 static size_t	hex_cnt;		/* current no bytes in hex buffer */
@@ -265,7 +264,7 @@ obj_end(void)
  *	write opcodes in ops[] into object file
  */
 void
-obj_writeb(size_t opanz)
+obj_writeb(size_t opanz, size_t len)
 {
 	int	i;
 
@@ -276,7 +275,7 @@ obj_writeb(size_t opanz)
 		break;
 	case OUTHEX:
 		for (i = 0; opanz; opanz--) {
-			if (hex_cnt >= datalen)
+			if (hex_cnt >= len)
 				flush_hex();
 			hex_buf[hex_cnt++] = (unsigned char)ops[i++];
 		}
@@ -327,7 +326,7 @@ flush_hex(void)
 	*p++ = '\n';
 	*p = '\0';
 	fwrite(hex_out, 1, strlen(hex_out), objfp);
-	hex_adr += hex_cnt;
+	hex_adr += (unsigned short) hex_cnt;
 	hex_cnt = 0;
 }
 

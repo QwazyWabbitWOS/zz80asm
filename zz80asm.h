@@ -222,7 +222,7 @@ void 	lst_line(const int, int);
 void 	lst_sort_sym(const size_t);
 void 	obj_header(void);
 void 	obj_end(void);
-void 	obj_writeb(size_t);
+void 	obj_writeb(size_t opanz, size_t len);
 void 	obj_fill(int);
 
 /* pfun.c */
