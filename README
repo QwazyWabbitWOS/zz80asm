@@ -51,16 +51,16 @@ PSEUDO OPERATIONS
            <symbol> DEFL <expression>
                        Define variable symbol.
 
-           <symbol> DEFB <expression, 'char', ...>
+           <symbol> DEFB/DB <expression, 'char', ...>
                        Write 8 bit bytes in memory.
 
-           <symbol> DEFW <expression, expression ...>
+           <symbol> DEFW/DW <expression, expression ...>
                        Write 16 bit words in memory.
 
            <symbol> DEFM <'string'>
                        Write character string in memory.
 
-           <symbol> DEFS <expression>
+           <symbol> DEFS/DS <expression>
                        Reserve space in memory.
 
    Conditional assembly:
