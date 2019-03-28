@@ -297,7 +297,7 @@ obj_fill(int count)
 		break;
 	case OUTHEX:
 		flush_hex();
-		hex_adr += count;
+		hex_adr += (unsigned short) count;
 		break;
 	}
 }
