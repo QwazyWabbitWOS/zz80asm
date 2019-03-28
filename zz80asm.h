@@ -29,6 +29,7 @@
 /*
  *	various constants
  */
+#define PROGNAME	"zz80asm"
 #define REL		"1.6"
 #define COPYR		"Copyright (C) 1987-2014 by Udo Munk"
 #define SRCEXT		".asm"	/* filename extension source */

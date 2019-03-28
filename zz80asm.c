@@ -25,7 +25,6 @@
  */
 
 #include <ctype.h>
-#include <err.h>
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,7 +33,6 @@
 
 #include "zz80asm.h"
 
-extern const char *__progname;
 
 static void	 usage(void)__attribute__((__noreturn__));
 static void 	 pass1(void);
@@ -94,6 +92,7 @@ main(int argc, char *argv[])
 {
 	int	i, ch;
 	size_t	len;
+	int err;
 
 	int	sym_flag = 0;	/* flag for option -s */
 
@@ -110,11 +109,12 @@ main(int argc, char *argv[])
 	while ((ch = getopt(argc, argv, "b:f:l::o:s:vx")) != -1) {
 		switch (ch) {
 		case 'b':
-			errno = 0;
+			err = 0;
 			datalen = strtoul(optarg, NULL, 0);
-			if ((datalen <= 0) || (datalen > 255) || (errno != 0)) {
-				errx(1, "%s: bad length value", optarg);
-				/* NOTREACHED */
+			err = errno;
+			if ((datalen <= 0) || (datalen > 255) || (err != 0)) {
+				fprintf(stderr, "%s: bad length value", optarg);
+				exit(1);
 			}
 			break;
 		case 'f':
@@ -194,7 +194,7 @@ main(int argc, char *argv[])
 		/* NOTREACHED */
 	}
 	if (ver_flag)
-		fprintf(stdout, "%s Release %s, %s\n", __progname, REL, COPYR);
+		fprintf(stdout, "%s Release %s, %s\n", PROGNAME, REL, COPYR);
 	pass1();
 	pass2();
 	while (i > 0)
@@ -538,6 +538,6 @@ usage(void)
 {
 	(void)fprintf(stderr,
 	    "usage: %s [-b length] [-f b|h|m] [-l [listfile]] [-o outfile] "
-	    "[-s a|n] [-v] [-x] filename ...\n", __progname);
+	    "[-s a|n] [-v] [-x] filename ...\n", PROGNAME);
 	exit(1);
 }
