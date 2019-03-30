@@ -269,7 +269,8 @@ obj_writeb(size_t opanz, size_t len)
 	switch (out_form) {
 	case OUTBIN:
 	case OUTMOS:
-		fwrite(ops, 1, opanz, objfp);
+		for (i = 0; i < (int) opanz; i++)
+			fwrite(&ops[i], 1, 1, objfp);
 		break;
 	case OUTHEX:
 		for (i = 0; opanz; opanz--) {
