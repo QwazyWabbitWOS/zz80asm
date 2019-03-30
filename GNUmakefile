@@ -4,10 +4,10 @@ MANDIR?=	${PREFIX}/man/man
 
 PROG=		zz80asm
 
-SRCS=		zz80asm.c num.c out.c pfun.c rfun.c tab.c strlcpy.c strlcat.c
+SRCS=		zz80asm.c num.c out.c pfun.c rfun.c tab.c strlcpy.c strlcat.c getopt.c
 
 CLFAGS+=	-g
-CFLAGS+=	-O2 -pipe
+CFLAGS+=	-O2 -pipe -DLINUX
 #CFLAGS+=	-Wall -Werror -Wextra -Wformat=2 -Wstrict-prototypes
 CFLAGS+=	-Wall -Werror -Wextra -Wformat=2
 CFLAGS+=	-Wmissing-declarations -pedantic -std=c99 -Wcast-qual
