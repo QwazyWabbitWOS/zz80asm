@@ -404,7 +404,7 @@ open_o_files(const char * const source)
 				strlcat(objfn, OBJEXTBIN, sizeof(objfn));
 		}
 	}
-	if ((objfp = fopen(objfn, "w")) == NULL)
+	if ((objfp = fopen(objfn, "wb")) == NULL) 
 		fatal(F_FOPEN, objfn);
 
 	if (list_flag) {
