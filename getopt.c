@@ -127,6 +127,10 @@ what you give them.   Help stamp out software-hoarding!  */
 #if defined(linux) || defined(LINUX)
 #  include <alloca.h>
 #  include <strings.h>
+/* because we're using this in the project */
+#include <stdlib.h>
+#include <string.h>
+#include "getopt.h"
 #endif
 
 #include <stdio.h>
