@@ -211,20 +211,20 @@ extern struct	sym **symarray;		/* sorted symbol table */
  *	function prototypes
  */
 /* num.c */
-int	eval(const char *);
-int	chk_v1(const int);
-int	chk_v2(const int);
+int	eval(const char *s);
+int	chk_v1(const int i);
+int	chk_v2(const int i);
 
 /* out.c */
-void 	asmerr(enum err_type);
+void 	asmerr(enum err_type et);
 void 	lst_header(void);
 void 	lst_attl(void);
-void 	lst_line(const int, int);
-void 	lst_sort_sym(const size_t);
+void 	lst_line(const int val, int opanz);
+void 	lst_sort_sym(const size_t len);
 void 	obj_header(void);
 void 	obj_end(void);
 void 	obj_writeb(size_t opanz, size_t len);
-void 	obj_fill(int);
+void 	obj_fill(int count);
 
 /* pfun.c */
 int 	op_org(void);
@@ -234,9 +234,9 @@ int 	op_ds(void);
 int 	op_db(void);
 int 	op_dm(void);
 int 	op_dw(void);
-int 	op_misc(const int);
-int 	op_cond(const int);
-int 	op_glob(const int);
+int 	op_misc(const int op_code);
+int 	op_cond(const int op_code);
+int 	op_glob(const int op_code);
 
 /* rfun.c */
 int 	op_1b(const int), op_2b(const int, const int), op_pupo(const int);

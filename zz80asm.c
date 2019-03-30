@@ -33,14 +33,13 @@
 
 #include "zz80asm.h"
 
-
-static void	 usage(void)__attribute__((__noreturn__));
-static void 	 pass1(void);
-static void 	 pass2(void);
+static void	 usage(void);
+static void	 pass1(void);
+static void	 pass2(void);
 static int 	 p1_line(void);
 static int 	 p2_line(void);
-static void 	 open_o_files(const char * const);
-static void 	 get_fn(char * const, char * const, const char * const);
+static void	 open_o_files(const char * const);
+static void	 get_fn(char * const, char * const, const char * const);
 static char	*get_label(char *, char *);
 static char	*get_opcode(char *, char *);
 static char	*get_arg(char *, char *);
@@ -76,10 +75,10 @@ size_t		 s_line;	/* line no. counter for listing */
 size_t		 datalen;	/* number of bytes per hex record */
 
 static char	*errmsg[] = {	/* error messages for fatal() */
-	"out of memory: %s",	/* 0 */
+	"out of memory:",	/* 0 */
 	"assembly halted",	/* 1 */
-	"can't open file %s",	/* 2 */
-	"internal error: %s"	/* 3 */
+	"can't open file:",	/* 2 */
+	"internal error:"	/* 3 */
 };
 
 static char	*infiles[MAXFN];	/* source filenames */
@@ -130,7 +129,7 @@ main(int argc, char *argv[])
 				break;
 			default:
 				usage();
-				/* NOTREACHED */
+				exit(1);
 			}
 			break;
 		case 'l':
@@ -141,7 +140,7 @@ main(int argc, char *argv[])
 		case 'o':
 			if (optarg == '\0') {
 				usage();
-				/* NOTREACHED */
+				exit(1);
 			}
 			if (out_form == OUTHEX)
 				get_fn(objfn, optarg, OBJEXTHEX);
@@ -158,7 +157,7 @@ main(int argc, char *argv[])
 				break;
 			default:
 				usage();
-				/* NOTREACHED */
+				exit(1);
 			}
 			break;
 		case 'v':
@@ -169,7 +168,7 @@ main(int argc, char *argv[])
 			break;
 		default:
 			usage();
-			/* NOTREACHED */
+			exit(1);
 		}
 	}
 	argc -= optind;
@@ -178,7 +177,7 @@ main(int argc, char *argv[])
 	/* The symbol table is dependent on the listing file. */
 	if (sym_flag && !list_flag) {
 		usage();
-		/* NOTREACHED */
+		exit(1);
 	}
 	for (i = 0; (argc--) && (i < MAXFN); i++) {
 		if ((infiles[i] = malloc(PATH_MAX)) == NULL) {
@@ -191,7 +190,7 @@ main(int argc, char *argv[])
 	if (i == 0) {
 		fprintf(errfp, "%s\n", "no input file");
 		usage();
-		/* NOTREACHED */
+		exit(1);
 	}
 	if (ver_flag)
 		fprintf(stdout, "%s Release %s, %s\n", PROGNAME, REL, COPYR);
@@ -539,5 +538,4 @@ usage(void)
 	(void)fprintf(stderr,
 	    "usage: %s [-b length] [-f b|h|m] [-l [listfile]] [-o outfile] "
 	    "[-s a|n] [-v] [-x] filename ...\n", PROGNAME);
-	exit(1);
 }
