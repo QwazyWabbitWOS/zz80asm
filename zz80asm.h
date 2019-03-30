@@ -26,7 +26,6 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <limits.h>
-#include "getopt.h"
 #define PATH_MAX MAX_PATH 
 #endif
 
@@ -37,6 +36,7 @@
 #endif
 
 #if defined(LINUX) || defined(_WIN32)
+#include "getopt.h"
 #define LINE_MAX 2048 /* minimum acceptable from GNU is _POSIX2_LINE_MAX or 2048 */ 
 #endif
 
