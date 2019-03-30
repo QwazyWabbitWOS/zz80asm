@@ -124,7 +124,7 @@ what you give them.   Help stamp out software-hoarding!  */
 #include <string.h>
 #endif
 
-#ifdef linux
+#if defined(linux) || defined(LINUX)
 #  include <alloca.h>
 #  include <strings.h>
 #endif

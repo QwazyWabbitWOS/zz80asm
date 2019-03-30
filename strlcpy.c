@@ -4,9 +4,11 @@
  * Returns strlen(src); if retval >= size, truncation occurred.
  */
 #include <limits.h>
+#include <string.h>
 #include <stdint.h>
 
 #ifndef HAVE_STRLCPY
+size_t strlcpy(char *dst, const char *src, size_t size);
 
 size_t strlcpy(char *dst, const char *src, size_t size)
 {
