@@ -23,6 +23,13 @@
 #ifndef ZZ80ASM_H
 #define ZZ80ASM_H
 
+#ifdef _WIN32
+#include <windows.h>
+#include "getopt.h"
+#define PATH_MAX MAX_PATH 
+#define LINE_MAX 2048 /* minimum acceptable from GNU is _POSIX2_LINE_MAX or 2048 */ 
+#endif
+
 #include <limits.h>
 #include <stdint.h>
 
@@ -259,8 +266,18 @@ size_t		 copy_sym(void);
 void		 sort_sym(const size_t, int);
 
 /* zz80asm.c */
-void 	fatal(enum fatal_type, const char * const)__attribute__((noreturn));
+#if defined _WIN32
+void _declspec(noreturn) fatal(enum fatal_type ft, const char * const arg);
+#else
+void fatal(enum fatal_type ft, const char * const arg) __attribute__((noreturn));
+#endif
 void 	p1_file(char * const);
 void 	p2_file(char * const);
+
+/* strlcat.c */
+size_t strlcat(char *dst, const char *src, size_t size);
+
+/* strlcpy.c */
+size_t strlcpy(char *dst, const char *src, size_t size);
 
 #endif /* ZZ80ASM_H */
