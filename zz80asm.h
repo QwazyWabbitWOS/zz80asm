@@ -25,7 +25,11 @@
 
 #ifdef _WIN32
 #include <windows.h>
-#define PATH_MAX MAX_PATH 
+#define PATH_MAX MAX_PATH
+#define LINE_MAX 2048 /* minimum acceptable from GNU is _POSIX2_LINE_MAX or 2048 */ 
+ /* Remap deprecated POSIX function names (C99) */
+#define strdup _strdup
+#define unlink _unlink
 #endif
 
 #include <limits.h>
@@ -37,10 +41,9 @@
 
 #if defined(LINUX) || defined(_WIN32)
 #include "getopt.h"
-#define LINE_MAX 2048 /* minimum acceptable from GNU is _POSIX2_LINE_MAX or 2048 */ 
 #endif
 
-/*
+ /*
  *	various constants
  */
 #define PROGNAME	"zz80asm"
