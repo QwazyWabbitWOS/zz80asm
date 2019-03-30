@@ -4,10 +4,21 @@ MANDIR?=	${PREFIX}/man/man
 
 PROG=		zz80asm
 
+# flavors of Linux
+ifeq ($(shell uname),Linux)
 SRCS=		zz80asm.c num.c out.c pfun.c rfun.c tab.c strlcpy.c strlcat.c getopt.c
+CFLAGS += -DLINUX
+LIBTOOL = ldd
+endif
+
+# OS X wants to be Linux and FreeBSD too.
+ifeq ($(shell uname),Darwin)
+SRCS=		zz80asm.c num.c out.c pfun.c rfun.c tab.c
+LIBTOOL = otool
+endif
 
 CLFAGS+=	-g
-CFLAGS+=	-O2 -pipe -DLINUX
+CFLAGS+=	-O2 -pipe
 #CFLAGS+=	-Wall -Werror -Wextra -Wformat=2 -Wstrict-prototypes
 CFLAGS+=	-Wall -Werror -Wextra -Wformat=2
 CFLAGS+=	-Wmissing-declarations -pedantic -std=c99 -Wcast-qual

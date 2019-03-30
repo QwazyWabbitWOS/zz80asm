@@ -25,13 +25,13 @@
 
 #ifdef _WIN32
 #include <windows.h>
-#include <limits.h>
 #define PATH_MAX MAX_PATH 
 #endif
 
+#include <limits.h>
 #include <stdint.h>
 
-#if defined(LINUX)
+#if defined(LINUX) && !defined(__APPLE__)
 #include <linux/limits.h>
 #endif
 
