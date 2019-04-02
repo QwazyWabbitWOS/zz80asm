@@ -5,11 +5,7 @@
  * Returns strlen(src) + MIN(size, strlen(initial dst)).
  * If retval >= size, truncation occurred.
  */
-#include <limits.h>
-#include <string.h>
-#include <stdint.h>
-
-size_t strlcat(char *dst, const char *src, size_t size);
+#include "zz80asm.h"
 
 size_t strlcat(char *dst, const char *src, size_t size)
 {

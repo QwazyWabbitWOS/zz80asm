@@ -24,7 +24,7 @@
  *	module with table operations on opcode and symbol tables
  */
 
-#define _DEFAULT_SOURCE 1
+#define _DEFAULT_SOURCE 1	/* for strdup on Debian */
 
 #include <stdio.h>
 #include <stdlib.h>

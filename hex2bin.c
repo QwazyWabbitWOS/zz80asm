@@ -37,6 +37,10 @@
 #include <ctype.h>
 #include <errno.h>
 
+#if _MSC_VER > 1500
+#pragma warning(disable : 4996)	// deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
+#endif
+
 /* size in bytes */
 #define MEMORY_SIZE 4096*1024
 

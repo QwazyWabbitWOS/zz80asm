@@ -3,12 +3,8 @@
  * will be copied.  Always NUL terminates (unless size == 0).
  * Returns strlen(src); if retval >= size, truncation occurred.
  */
-#include <limits.h>
-#include <string.h>
-#include <stdint.h>
 
-#ifndef HAVE_STRLCPY
-size_t strlcpy(char *dst, const char *src, size_t size);
+#include "zz80asm.h"
 
 size_t strlcpy(char *dst, const char *src, size_t size)
 {
@@ -34,5 +30,3 @@ size_t strlcpy(char *dst, const char *src, size_t size)
 
 	return(s - src - 1);	/* count does not include NUL */
 }
-
-#endif

@@ -31,10 +31,19 @@
 #define unlink _unlink
 #endif
 
+#if _MSC_VER > 1500
+#pragma warning(disable : 4996)	// deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
+#endif
+
+#include <ctype.h>
+#include <errno.h>
 #include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <stdint.h>
 
-#if defined(LINUX) && !defined(__APPLE__)
+#if !defined(PATH_MAX)
 #include <linux/limits.h>
 #endif
 
