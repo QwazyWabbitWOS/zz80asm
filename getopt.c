@@ -115,8 +115,7 @@ what you give them.   Help stamp out software-hoarding!  */
 #endif
 #endif
 
-//#if ( defined(MSDOS) || defined(__MSDOS__) ) && !defined( __GNUC__ )
-#if ( defined(_WIN32) ) && !defined( __GNUC__ )
+#if ( defined(_WIN32) || defined(MSDOS) || defined(__MSDOS__) ) && !defined( __GNUC__ )
 #define bcopy(a,b,c) memcpy((b),(a),(c))
 #define index strchr
 #define alloca malloc
