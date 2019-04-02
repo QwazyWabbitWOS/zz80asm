@@ -37,8 +37,10 @@
 #include <ctype.h>
 #include <errno.h>
 
+#ifdef _WIN32
 #if _MSC_VER > 1500
 #pragma warning(disable : 4996)	// deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
+#endif
 #endif
 
 /* size in bytes */

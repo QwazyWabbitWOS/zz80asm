@@ -109,11 +109,13 @@ what you give them.   Help stamp out software-hoarding!  */
    GNU application programs can use a third alternative mode in which
    they can distinguish the relative order of options and other arguments.  */
 
+#ifdef _WIN32
 #if _MSC_VER > 1500
 #pragma warning(disable : 4996)	// deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
 #endif
+#endif
 
-   //#if ( defined(MSDOS) || defined(__MSDOS__) ) && !defined( __GNUC__ )
+//#if ( defined(MSDOS) || defined(__MSDOS__) ) && !defined( __GNUC__ )
 #if ( defined(_WIN32) ) && !defined( __GNUC__ )
 #define bcopy(a,b,c) memcpy((b),(a),(c))
 #define index strchr

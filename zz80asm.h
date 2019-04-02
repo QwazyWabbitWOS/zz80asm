@@ -29,10 +29,10 @@
  /* Remap deprecated POSIX function names (C99) */
 #define strdup _strdup
 #define unlink _unlink
-#endif
 
 #if _MSC_VER > 1500
 #pragma warning(disable : 4996)	// deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
+#endif
 #endif
 
 #include <ctype.h>
