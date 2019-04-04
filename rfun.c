@@ -2764,6 +2764,81 @@ op_sla(void)
 }
 
 /*
+ *	SLL Undocumented opcode
+ */
+int
+op_sll(void)
+{
+	int	len, op;
+	char *p;
+
+	if ((pass == 1) && *label)
+		put_label();
+	switch (op = get_reg(operand)) {
+	case REGA:					/* SLL A */
+	case REGB:					/* SLL B */
+	case REGC:					/* SLL C */
+	case REGD:					/* SLL D */
+	case REGE:					/* SLL E */
+	case REGH:					/* SLL H */
+	case REGL:					/* SLL L */
+	case REGIHL:					/* SLL (HL) */
+		len = 2;
+		ops[0] = 0xcb;
+		ops[1] = 0x30 + op;
+		break;
+	case NOREG:					/* operand isn't reg */
+		if (strncmp(operand, "(IX+", 4) == 0) {
+			len = 4;			/* SLL (IX+d) */
+			if (pass == 2) {
+				ops[0] = 0xdd;
+				ops[1] = 0xcb;
+				ops[2] = chk_v2(calc_val(strchr(operand, '+') + 1));
+				p = get_second(operand);
+				if (p) {
+					op = get_reg(p);
+					ops[3] = 0x30 + op;
+				}
+				else
+					ops[3] = 0x36;
+			}
+		}
+		else if (strncmp(operand, "(IY+", 4) == 0) {
+			len = 4;			/* SLL (IY+d) */
+			if (pass == 2) {
+				ops[0] = 0xfd;
+				ops[1] = 0xcb;
+				ops[2] = chk_v2(calc_val(strchr(operand, '+') + 1));
+				p = get_second(operand);
+				if (p) {
+					op = get_reg(p);
+					ops[3] = 0x30 + op;
+				}
+				else
+					ops[3] = 0x36;
+			}
+		}
+		else {
+			len = 1;
+			ops[0] = 0;
+			asmerr(E_ILLOPE);
+		}
+		break;
+	case NOOPERA:					/* missing operand */
+		len = 1;
+		ops[0] = 0;
+		asmerr(E_MISOPE);
+		break;
+	default:					/* invalid operand */
+		len = 1;
+		ops[0] = 0;
+		asmerr(E_ILLOPE);
+	}
+	return (len);
+}
+
+
+/*
  *	SRA
  */
 int

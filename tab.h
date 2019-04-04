@@ -116,6 +116,7 @@ static struct opc opctab[] = {
 	{ "SCF",	op_1b,		0x37,	0	},
 	{ "SET",	op_set,		0,	0	},
 	{ "SLA",	op_sla,		0,	0	},
+	{ "SLL",	op_sll,		0,	0	},
 	{ "SRA",	op_sra,		0,	0	},
 	{ "SRL",	op_srl,		0,	0	},
 	{ "SUB",	op_sub,		0,	0	},

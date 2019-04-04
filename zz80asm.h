@@ -273,7 +273,7 @@ int 	op_jp(void), op_jr(void), op_djnz(void), op_rst(void);
 int 	op_add(void), op_adc(void), op_sub(void), op_sbc(void), op_cp(void);
 int 	op_inc(void), op_dec(void), op_or(void), op_xor(void), op_and(void);
 int 	op_rl(void), op_rr(void), op_sla(void), op_sra(void), op_srl(void);
-int 	op_rlc(void), op_rrc(void);
+int 	op_rlc(void), op_rrc(void), op_sll(void);
 int 	op_out(void), op_in(void), op_im(void);
 int 	op_set(void), op_res(void), op_bit(void);
 
