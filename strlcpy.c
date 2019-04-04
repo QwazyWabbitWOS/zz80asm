@@ -6,7 +6,7 @@
 
 #include "zz80asm.h"
 
-size_t strlcpy(char *dst, const char *src, size_t size)
+size_t my_strlcpy(char *dst, const char *src, size_t size)
 {
 	char *d = dst;
 	const char *s = src;

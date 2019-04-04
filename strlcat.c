@@ -7,7 +7,7 @@
  */
 #include "zz80asm.h"
 
-size_t strlcat(char *dst, const char *src, size_t size)
+size_t my_strlcat(char *dst, const char *src, size_t size)
 {
 	char *d = dst;
 	const char *s = src;

@@ -33,12 +33,6 @@
     <ClCompile Include="zz80asm.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="strlcpy.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="strlcat.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="getopt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -56,9 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README" />
-    <None Include="SSO2M.asm" />
     <None Include="BSDmakefile" />
     <None Include="GNUmakefile" />
+    <None Include="opcodes_alphabetic.asm" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Motorola S Record.txt" />

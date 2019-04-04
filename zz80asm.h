@@ -295,11 +295,5 @@ void fatal(enum fatal_type ft, const char * const arg) __attribute__((noreturn))
 void 	p1_file(char * const);
 void 	p2_file(char * const);
 
-#if !defined(__APPLE__)
-/* strlcat.c */
-size_t strlcat(char *dst, const char *src, size_t size);
 
-/* strlcpy.c */
-size_t strlcpy(char *dst, const char *src, size_t size);
-#endif
 #endif /* ZZ80ASM_H */

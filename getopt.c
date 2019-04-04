@@ -115,34 +115,10 @@ what you give them.   Help stamp out software-hoarding!  */
 #endif
 #endif
 
-#if ( defined(_WIN32) || defined(MSDOS) || defined(__MSDOS__) ) && !defined( __GNUC__ )
-#define bcopy(a,b,c) memcpy((b),(a),(c))
-#define index strchr
-#define alloca malloc
-#include <stdlib.h> /* for getenv */
-#ifdef __TURBOC__
-#  include <mem.h>
-#  define alloca malloc
-#else
-#  include <memory.h>
-#endif
-#include <string.h>
-#endif
-
-#if defined(linux) || defined(LINUX)
-#  include <alloca.h>
-#  include <strings.h>
-/* because we're using this in the project */
-#include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h> /* for getenv & malloc */
 #include <string.h>
 #include "getopt.h"
-#endif
-
-#include <stdio.h>
-
-#ifdef sparc
-#include <alloca.h>
-#endif
 
    /* For communication from `getopt' to the caller.
 	  When `getopt' finds an option that takes an argument,
@@ -232,14 +208,14 @@ exchange(char** argv)
 {
 	int nonopts_size
 		= (last_nonopt - first_nonopt) * sizeof(char *);
-	char **temp = (char **)alloca(nonopts_size);
+	char **temp = (char **)malloc(nonopts_size);
 
 	/* Interchange the two blocks of data in argv.  */
 
-	bcopy(&argv[first_nonopt], temp, nonopts_size);
-	bcopy(&argv[last_nonopt], &argv[first_nonopt],
+	memmove(&argv[first_nonopt], temp, nonopts_size);
+	memmove(&argv[last_nonopt], &argv[first_nonopt],
 		(optind - last_nonopt) * sizeof(char *));
-	bcopy(temp, &argv[first_nonopt + optind - last_nonopt],
+	memmove(temp, &argv[first_nonopt + optind - last_nonopt],
 		nonopts_size);
 
 	/* Update records for the slots the non-options now occupy.  */
@@ -383,7 +359,7 @@ getopt(int argc, char** argv, char* optstring)
 
 	{
 		char c = *nextchar++;
-		char *temp = (char *)index(optstring, c);
+		char *temp = (char *)strchr(optstring, c);
 
 		/* Increment `optind' when we start to process its last character.  */
 		if (*nextchar == 0)

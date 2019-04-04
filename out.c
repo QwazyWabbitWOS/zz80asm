@@ -201,7 +201,7 @@ lst_sort_sym(const size_t len)
 	size_t	i, j;
 
 	p_line = j = 0;
-	strlcpy(title, "Symbol table", sizeof(title));
+	strncpy(title, "Symbol table", sizeof(title));
 	if (ppl == 0)
 		fprintf(lstfp, "\n");
 	for (i = 0; i < len; i++) {

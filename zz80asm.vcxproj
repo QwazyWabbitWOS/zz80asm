@@ -107,8 +107,6 @@
     <ClCompile Include="out.c" />
     <ClCompile Include="pfun.c" />
     <ClCompile Include="rfun.c" />
-    <ClCompile Include="strlcat.c" />
-    <ClCompile Include="strlcpy.c" />
     <ClCompile Include="tab.c" />
     <ClCompile Include="zz80asm.c">
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level4</WarningLevel>
@@ -122,8 +120,8 @@
   <ItemGroup>
     <None Include="BSDmakefile" />
     <None Include="GNUmakefile" />
+    <None Include="opcodes_alphabetic.asm" />
     <None Include="README" />
-    <None Include="SSO2M.asm" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Motorola S Record.txt" />

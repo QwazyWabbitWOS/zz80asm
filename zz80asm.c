@@ -388,17 +388,17 @@ open_o_files(const char * const source)
 	char	*p;
 
 	if (*objfn == '\0') {
-		strlcpy(objfn, source, sizeof(objfn));
+		strncpy(objfn, source, sizeof(objfn));
 		if ((p = strrchr(objfn, '.')) != NULL) {
 			if (out_form == OUTHEX)
-				strlcpy(p, OBJEXTHEX, sizeof(objfn));
+				strncpy(p, OBJEXTHEX, sizeof(objfn));
 			else
-				strlcpy(p, OBJEXTBIN, sizeof(objfn));
+				strncpy(p, OBJEXTBIN, sizeof(objfn));
 		} else {
 			if (out_form == OUTHEX)
-				strlcat(objfn, OBJEXTHEX, sizeof(objfn));
+				strncat(objfn, OBJEXTHEX, sizeof(objfn));
 			else
-				strlcat(objfn, OBJEXTBIN, sizeof(objfn));
+				strncat(objfn, OBJEXTBIN, sizeof(objfn));
 		}
 	}
 	if ((objfp = fopen(objfn, "wb")) == NULL) 
@@ -406,11 +406,11 @@ open_o_files(const char * const source)
 
 	if (list_flag) {
 		if (*lstfn == '\0') {
-			strlcpy(lstfn, source, sizeof(lstfn));
+			strncpy(lstfn, source, sizeof(lstfn));
 			if ((p = strrchr(lstfn, '.')) != NULL)
-				strlcpy(p, LSTEXT, sizeof(lstfn));
+				strncpy(p, LSTEXT, sizeof(lstfn));
 			else
-				strlcat(lstfn, LSTEXT, sizeof(lstfn));
+				strncat(lstfn, LSTEXT, sizeof(lstfn));
 		}
 		if ((lstfp = fopen(lstfn, "w")) == NULL)
 			fatal(F_FOPEN, lstfn);
@@ -435,7 +435,7 @@ get_fn(char * const dest, char * const src, const char * const ext)
 	*dp = '\0';
 	if ((strrchr(dest, '.') == NULL) &&
 	    (strlen(dest) <= (PATH_MAX - strlen(ext))))
-		strlcat(dest, ext, PATH_MAX);
+		strncat(dest, ext, PATH_MAX);
 }
 
 /*
