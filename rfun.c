@@ -3410,6 +3410,7 @@ calc_val(const char * const s)
 		asmerr(E_MISPAR);
 		return (0);
 	}
-	strncpy(tmp, s, (size_t)(p - s + 1));
+	strncpy(tmp, s, (size_t)(p - s));
+	tmp[(size_t)(p - s)] = '\0';
 	return (eval(tmp));
 }
