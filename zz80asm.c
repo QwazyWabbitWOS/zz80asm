@@ -396,9 +396,9 @@ open_o_files(const char * const source)
 				strncpy(p, OBJEXTBIN, sizeof(objfn));
 		} else {
 			if (out_form == OUTHEX)
-				strncat(objfn, OBJEXTHEX, sizeof(objfn));
+				strncat(objfn, OBJEXTHEX, sizeof(objfn) - 1);
 			else
-				strncat(objfn, OBJEXTBIN, sizeof(objfn));
+				strncat(objfn, OBJEXTBIN, sizeof(objfn) - 1);
 		}
 	}
 	if ((objfp = fopen(objfn, "wb")) == NULL) 
@@ -410,7 +410,7 @@ open_o_files(const char * const source)
 			if ((p = strrchr(lstfn, '.')) != NULL)
 				strncpy(p, LSTEXT, sizeof(lstfn));
 			else
-				strncat(lstfn, LSTEXT, sizeof(lstfn));
+				strncat(lstfn, LSTEXT, sizeof(lstfn) - 1);
 		}
 		if ((lstfp = fopen(lstfn, "w")) == NULL)
 			fatal(F_FOPEN, lstfn);
@@ -435,7 +435,7 @@ get_fn(char * const dest, char * const src, const char * const ext)
 	*dp = '\0';
 	if ((strrchr(dest, '.') == NULL) &&
 	    (strlen(dest) <= (PATH_MAX - strlen(ext))))
-		strncat(dest, ext, PATH_MAX);
+		strncat(dest, ext, PATH_MAX - 1);
 }
 
 /*
