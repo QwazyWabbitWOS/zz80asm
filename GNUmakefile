@@ -6,7 +6,7 @@ PROG=		zz80asm
 
 # flavors of Linux
 ifeq ($(shell uname),Linux)
-SRCS=		zz80asm.c num.c out.c pfun.c rfun.c tab.c getopt.c
+SRCS=		zz80asm.c num.c out.c pfun.c rfun.c tab.c
 CFLAGS += -DLINUX
 LIBTOOL = ldd
 endif
