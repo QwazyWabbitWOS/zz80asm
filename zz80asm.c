@@ -30,6 +30,8 @@
 
 #include "zz80asm.h"
 
+extern const char *__progname;
+
 static void	 usage(void);
 static void	 pass1(void);
 static void	 pass2(void);
@@ -83,12 +85,82 @@ static char	 objfn[PATH_MAX];	/* object filename */
 static char	 lstfn[PATH_MAX];	/* listing filename */
 static char	 opcode[LINE_MAX];	/* buffer for opcode */
 
+#if !defined(strlcpy)
+size_t strlcpy(char *dst, const char *src, size_t size);
+
+/*
+ * Copy src to string dst of size size.  At most size-1 characters
+ * will be copied.  Always NUL terminates (unless size == 0).
+ * Returns strlen(src); if retval >= size, truncation occurred.
+ */
+size_t strlcpy(char *dst, const char *src, size_t size)
+{
+	char *d = dst;
+	const char *s = src;
+	size_t n = size;
+
+	/* Copy as many bytes as will fit */
+	if (n != 0) {
+		while (--n != 0) {
+			if ((*d++ = *s++) == '\0')
+				break;
+		}
+	}
+
+	/* Not enough room in dst, add NUL and traverse rest of src */
+	if (n == 0) {
+		if (size != 0)
+			*d = '\0';		/* NUL-terminate dst */
+		while (*s++)
+			;
+	}
+
+	return(s - src - 1);	/* count does not include NUL */
+}
+#endif
+#if !defined(strlcat)
+size_t strlcat(char *dst, const char *src, size_t size);
+
+/*
+ * Appends src to string dst of size size (unlike strncat, size is the
+ * full size of dst, not space left).  At most size-1 characters
+ * will be copied.  Always NUL terminates (unless size <= strlen(dst)).
+ * Returns strlen(src) + MIN(size, strlen(initial dst)).
+ * If retval >= size, truncation occurred.
+ */
+size_t strlcat(char *dst, const char *src, size_t size)
+{
+	char *d = dst;
+	const char *s = src;
+	size_t n = size;
+	size_t dlen;
+
+	/* Find the end of dst and adjust bytes left but don't go past end */
+	while (n-- != 0 && *d != '\0')
+		d++;
+	dlen = d - dst;
+	n = size - dlen;
+
+	if (n == 0)
+		return(dlen + strlen(s));
+	while (*s != '\0') {
+		if (n != 1) {
+			*d++ = *s;
+			n--;
+		}
+		s++;
+	}
+	*d = '\0';
+
+	return(dlen + (s - src));	/* count does not include NUL */
+}
+
+#endif
 int
 main(int argc, char *argv[])
 {
 	int	i, ch;
 	size_t	len;
-	int err;
 
 	int	sym_flag = 0;	/* flag for option -s */
 
@@ -105,11 +177,10 @@ main(int argc, char *argv[])
 	while ((ch = getopt(argc, argv, "b:f:l::o:s:vx")) != -1) {
 		switch (ch) {
 		case 'b':
-			err = 0;
+			errno = 0;
 			datalen = strtoul(optarg, NULL, 0);
-			err = errno;
-			if ((datalen <= 0) || (datalen > 255) || (err != 0)) {
-				fprintf(stderr, "%s: bad length value", optarg);
+			if ((datalen <= 0) || (datalen > 255) || (errno != 0)) {
+				fprintf(stdout, "%s: bad length value", optarg);
 				exit(1);
 			}
 			break;
@@ -391,14 +462,14 @@ open_o_files(const char * const source)
 		strncpy(objfn, source, sizeof(objfn));
 		if ((p = strrchr(objfn, '.')) != NULL) {
 			if (out_form == OUTHEX)
-				strncpy(p, OBJEXTHEX, sizeof(objfn));
+				strlcpy(p, OBJEXTHEX, sizeof(objfn));
 			else
-				strncpy(p, OBJEXTBIN, sizeof(objfn));
+				strlcpy(p, OBJEXTBIN, sizeof(objfn));
 		} else {
 			if (out_form == OUTHEX)
-				strncat(objfn, OBJEXTHEX, sizeof(objfn) - 1);
+				strlcat(objfn, OBJEXTHEX, sizeof(objfn));
 			else
-				strncat(objfn, OBJEXTBIN, sizeof(objfn) - 1);
+				strlcat(objfn, OBJEXTBIN, sizeof(objfn));
 		}
 	}
 	if ((objfp = fopen(objfn, "wb")) == NULL) 
@@ -406,11 +477,11 @@ open_o_files(const char * const source)
 
 	if (list_flag) {
 		if (*lstfn == '\0') {
-			strncpy(lstfn, source, sizeof(lstfn));
+			strlcpy(lstfn, source, sizeof(lstfn));
 			if ((p = strrchr(lstfn, '.')) != NULL)
-				strncpy(p, LSTEXT, sizeof(lstfn));
+				strlcpy(p, LSTEXT, sizeof(lstfn));
 			else
-				strncat(lstfn, LSTEXT, sizeof(lstfn) - 1);
+				strlcat(lstfn, LSTEXT, sizeof(lstfn));
 		}
 		if ((lstfp = fopen(lstfn, "w")) == NULL)
 			fatal(F_FOPEN, lstfn);
@@ -435,7 +506,7 @@ get_fn(char * const dest, char * const src, const char * const ext)
 	*dp = '\0';
 	if ((strrchr(dest, '.') == NULL) &&
 	    (strlen(dest) <= (PATH_MAX - strlen(ext))))
-		strncat(dest, ext, PATH_MAX - 1);
+		strlcat(dest, ext, PATH_MAX);
 }
 
 /*

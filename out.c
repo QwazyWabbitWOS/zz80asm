@@ -29,6 +29,7 @@
 
 #include "zz80asm.h"
 
+extern const char *__progname;
 static void	flush_hex(void);
 static int	chksum(void);
 static void	btoh(const unsigned char, char ** const);
