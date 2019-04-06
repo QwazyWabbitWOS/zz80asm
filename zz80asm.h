@@ -58,10 +58,16 @@
 #endif
 #endif
 
+#if defined( __GNUC__ )
+extern const char *__progname;
+#else
+#define PROGNAME	"zz80asm"
+#define __progname	PROGNAME
+#endif
+
  /*
  *	various constants
  */
-#define PROGNAME	"zz80asm"
 #define REL		"1.6"
 #define COPYR		"Copyright (C) 1987-2014 by Udo Munk"
 #define SRCEXT		".asm"	/* filename extension source */

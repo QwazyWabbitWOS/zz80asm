@@ -30,8 +30,6 @@
 
 #include "zz80asm.h"
 
-extern const char *__progname;
-
 static void	 usage(void);
 static void	 pass1(void);
 static void	 pass2(void);
@@ -261,7 +259,7 @@ main(int argc, char *argv[])
 		exit(1);
 	}
 	if (ver_flag)
-		fprintf(stdout, "%s Release %s, %s\n", PROGNAME, REL, COPYR);
+		fprintf(stdout, "%s Release %s, %s\n", __progname, REL, COPYR);
 	pass1();
 	pass2();
 	while (i > 0)
@@ -472,7 +470,7 @@ open_o_files(const char * const source)
 				strlcat(objfn, OBJEXTBIN, sizeof(objfn));
 		}
 	}
-	if ((objfp = fopen(objfn, "wb")) == NULL) 
+	if ((objfp = fopen(objfn, "wb")) == NULL)
 		fatal(F_FOPEN, objfn);
 
 	if (list_flag) {
@@ -605,5 +603,5 @@ usage(void)
 {
 	(void)fprintf(stderr,
 	    "usage: %s [-b length] [-f b|h|m] [-l [listfile]] [-o outfile] "
-	    "[-s a|n] [-v] [-x] filename ...\n", PROGNAME);
+	    "[-s a|n] [-v] [-x] filename ...\n", __progname);
 }

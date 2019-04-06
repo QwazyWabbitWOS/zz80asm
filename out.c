@@ -29,7 +29,6 @@
 
 #include "zz80asm.h"
 
-extern const char *__progname;
 static void	flush_hex(void);
 static int	chksum(void);
 static void	btoh(const unsigned char, char ** const);
@@ -85,7 +84,7 @@ lst_header(void)
 	static size_t	page = 0;	/* no. of pages for listing */
 
 	fprintf(lstfp, "\f%s\t\tRelease %s\t\t\t\tPage %zu\n",
-	    PROGNAME, REL, ++page);
+	    __progname, REL, ++page);
 	fprintf(lstfp, "File:  %s\n", srcfn);
 	fprintf(lstfp, "Title: %s\n", title);
 	p_line = 3;
