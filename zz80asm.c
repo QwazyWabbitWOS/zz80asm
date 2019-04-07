@@ -50,6 +50,7 @@ char		*srcfn;		/* filename of current processed source file */
 char		 line[LINE_MAX];	/* buffer for one line source */
 char		 label[SYMSIZE + 1];	/* buffer for label */
 char		 operand[LINE_MAX];	/* buffer for operand */
+char		 *date;		/* the current date and time */
 
 uint8_t		 list_flag;	/* flag for option -l */
 uint8_t		 ver_flag;	/* flag for option -v */
@@ -82,6 +83,7 @@ static char	*infiles[MAXFN];	/* source filenames */
 static char	 objfn[PATH_MAX];	/* object filename */
 static char	 lstfn[PATH_MAX];	/* listing filename */
 static char	 opcode[LINE_MAX];	/* buffer for opcode */
+
 
 #if !defined(strlcpy)
 size_t strlcpy(char *dst, const char *src, size_t size);
@@ -116,6 +118,7 @@ size_t strlcpy(char *dst, const char *src, size_t size)
 	return(s - src - 1);	/* count does not include NUL */
 }
 #endif
+
 #if !defined(strlcat)
 size_t strlcat(char *dst, const char *src, size_t size);
 
@@ -154,11 +157,12 @@ size_t strlcat(char *dst, const char *src, size_t size)
 }
 
 #endif
-int
-main(int argc, char *argv[])
+
+int main(int argc, char *argv[])
 {
 	int	i, ch;
 	size_t	len;
+	time_t	tt;
 
 	int	sym_flag = 0;	/* flag for option -s */
 
@@ -260,6 +264,9 @@ main(int argc, char *argv[])
 	}
 	if (ver_flag)
 		fprintf(stdout, "%s Release %s, %s\n", __progname, REL, COPYR);
+
+	time(&tt);
+	date = ctime(&tt);
 	pass1();
 	pass2();
 	while (i > 0)

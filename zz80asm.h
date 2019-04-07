@@ -43,6 +43,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <time.h>
 
 #if !defined(PATH_MAX)
 #include <linux/limits.h>
@@ -215,6 +216,7 @@ extern char	 tmp[LINE_MAX];		/* temporary buffer */
 extern char	 label[SYMSIZE + 1];	/* buffer for label */
 extern char	 operand[LINE_MAX];	/* buffer for operand */
 extern char	 title[LINE_MAX];	/* buffer for title of source */
+extern char	 *date;		/* the current date and time */
 
 extern int	 ops[OPCARRAY];	/* buffer for generated object code */
 

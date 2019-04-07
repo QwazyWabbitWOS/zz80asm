@@ -86,8 +86,9 @@ lst_header(void)
 	fprintf(lstfp, "\f%s\t\tRelease %s\t\t\t\tPage %zu\n",
 	    __progname, REL, ++page);
 	fprintf(lstfp, "File:  %s\n", srcfn);
+	fprintf(lstfp, "Date:  %s", date);
 	fprintf(lstfp, "Title: %s\n", title);
-	p_line = 3;
+	p_line = 4;
 }
 
 /*
