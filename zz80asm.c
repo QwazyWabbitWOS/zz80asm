@@ -457,7 +457,7 @@ open_o_files(const char * const source)
 	char	*p;
 
 	if (*objfn == '\0') {
-		strncpy(objfn, source, sizeof(objfn));
+		strlcpy(objfn, source, sizeof(objfn));
 		if ((p = strrchr(objfn, '.')) != NULL) {
 			if (out_form == OUTHEX)
 				strlcpy(p, OBJEXTHEX, sizeof(objfn));
