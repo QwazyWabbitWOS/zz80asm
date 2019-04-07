@@ -324,7 +324,7 @@ op_misc(const int op_code)
 		sd_flag = 4;
 		break;
 	case 7:				/* TITLE */
-		if (pass == 2) {
+		if (pass == 1) {
 			p = line;
 			d = title;
 			while (isspace((int)*p)) /* no white space to TITLE */
