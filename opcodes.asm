@@ -1,3 +1,5 @@
+;	PAGE 66
+;	TITLE 'Z80 Opcodes in Alphabetical Order'
 ;Z80 Opcode Listing
 ;Z-80 CPU Instruction Set
 ;new 14/feb 2000
@@ -8,9 +10,9 @@
 ;	opcode         t-states   explanation
 
 	org	0000h
-DD	EQU 0008H
-n	EQU 0002H
-nn	EQU	0ADDEH
+DD	EQU	08H
+n	EQU	02H
+nn	EQU	0DEADH
 
 ;	ADC   A,r       ;4 Add with carry register r to accumulator.
 	ADC   A,B
@@ -19,10 +21,10 @@ nn	EQU	0ADDEH
 	ADC   A,E
 	ADC   A,H
 	ADC   A,L
+	ADC   A,(HL)    ;7 Add with carry location (HL) to acccumulator.
 	ADC   A,A
 
 	ADC   A,n       ;7 Add with carry value n to accumulator.
-	ADC   A,(HL)    ;7 Add with carry location (HL) to acccumulator.
 	ADC   A,(IX+DD) ;19 Add with carry location (IX+DD) to accumulator.
 	ADC   A,(IY+DD) ;19 Add with carry location (IY + DD) to accumulator.
 
@@ -38,10 +40,10 @@ nn	EQU	0ADDEH
 	ADD   A,E
 	ADD   A,H
 	ADD   A,L
+	ADD   A,(HL)    ;7 Add location (HL) to acccumulator.
 	ADD   A,A
 
 	ADD   A,n       ;7 Add value n to accumulator.
-	ADD   A,(HL)    ;7 Add location (HL) to acccumulator.
 	ADD   A,(IX+DD) ;19 Add location (IX+DD) to accumulator.
 	ADD   A,(IY+DD) ;19 Add location (IY + DD) to accumulator.
 
@@ -67,22 +69,12 @@ nn	EQU	0ADDEH
 	AND   E
 	AND   H
 	AND   L
+	AND   (HL)      ; 7 Logical AND of value at location (HL) to accumulator.
 	AND   A
 
 	AND   n         ; 7 Logical AND of value n to accumulator.
-	AND   (HL)      ; 7 Logical AND of value at location (HL) to accumulator.
 	AND   (IX+DD)   ;19 Logical AND of value at location (IX+DD) to accumulator.
 	AND   (IY+DD)   ;19 Logical AND of value at location (IY + DD) to accumulator.
-
-;	BIT   b,(HL)    ;12 Test bit b of location (HL).
-	BIT   0,(HL)
-	BIT   1,(HL)
-	BIT   2,(HL)
-	BIT   3,(HL)
-	BIT   4,(HL)
-	BIT   5,(HL)
-	BIT   6,(HL)
-	BIT   7,(HL)
 
 ;	BIT   b,(IX+DD) ;20 Test bit b of location (IX+DD).
 	BIT   0,(IX+DD)
@@ -105,6 +97,52 @@ nn	EQU	0ADDEH
 	BIT   7,(IY+DD)
 
 ;	BIT   b,r       ; 8 Test bit b of register r.
+	BIT   0,B
+	BIT   1,B
+	BIT   2,B
+	BIT   3,B
+	BIT   4,B
+	BIT   5,B
+	BIT   6,B
+	BIT   7,B
+
+	BIT   0,C
+	BIT   1,C
+	BIT   2,C
+	BIT   3,C
+	BIT   4,C
+	BIT   5,C
+	BIT   6,C
+	BIT   7,C
+
+	BIT   0,D
+	BIT   1,D
+	BIT   2,D
+	BIT   3,D
+	BIT   4,D
+	BIT   5,D
+	BIT   6,D
+	BIT   7,D
+
+	BIT   0,E
+	BIT   1,E
+	BIT   2,E
+	BIT   3,E
+	BIT   4,E
+	BIT   5,E
+	BIT   6,E
+	BIT   7,E
+
+;	BIT   b,(HL)    ;12 Test bit b of location (HL).
+	BIT   0,(HL)
+	BIT   1,(HL)
+	BIT   2,(HL)
+	BIT   3,(HL)
+	BIT   4,(HL)
+	BIT   5,(HL)
+	BIT   6,(HL)
+	BIT   7,(HL)
+
 	BIT   0,A
 	BIT   1,A
 	BIT   2,A
@@ -133,12 +171,12 @@ nn	EQU	0ADDEH
 	CP    E
 	CP    H
 	CP    L
+	CP    (HL)      ; 7 Compare value at location (HL) with accumulator.
 	CP    A
 
 ;	CP    n         ; 7 Compare value n with accumulator.
 	CP    0
 	CP    0FFH
-	CP    (HL)      ; 7 Compare value at location (HL) with accumulator.
 	CP    (IX+DD)   ;19 Compare value at location (IX+DD) with accumulator.
 	CP    (IY+DD)   ;19 Compare value at location (IY+DD) with accumulator.
 
@@ -156,9 +194,9 @@ nn	EQU	0ADDEH
 	DEC   E
 	DEC   H
 	DEC   L
+	DEC   (HL)      ;11 Decrement value at location (HL).
 	DEC   A
 
-	DEC   (HL)      ;11 Decrement value at location (HL).
 	DEC   (IX+DD)   ;23 Decrement value at location (IX+DD).
 	DEC   (IY+DD)   ;23 Decrement value at location (IY+DD).
 
@@ -189,7 +227,13 @@ TAG0:
 
 	IN    A,(n)     ;11 Load the accumulator with input from device n.
 ;	IN    r,(c)     ;12 Load the register r with input from device (C).
-	IN    A,(00H)
+	IN    B,(C)
+	IN    C,(C)
+	IN    D,(C)
+	IN    E,(C)
+	IN    H,(C)
+	IN    L,(C)
+	IN    A,(C)
 
 ;	INC   r         ; 4 Increment register r.
 	INC   B
@@ -198,9 +242,9 @@ TAG0:
 	INC   E
 	INC   H
 	INC   L
+	INC   (HL)      ;11 Increment location (HL).
 	INC   A
 
-	INC   (HL)      ;11 Increment location (HL).
 	INC   (IX+DD)   ;23 Increment location (IX+DD).
 	INC   (IY+DD)   ;23 Increment location (IY+DD).
 
@@ -467,6 +511,7 @@ TAG1:
 	OR    E
 	OR    H
 	OR    L
+	OR    (HL)      ; 7 Logical OR of value at location (HL) and accumulator.
 	OR    A
 
 ;	OR    n         ; 7 Logical OR of value n and accumulator.
@@ -474,13 +519,18 @@ TAG1:
 	OR    0
 	OR    0FFH
 
-	OR    (HL)      ; 7 Logical OR of value at location (HL) and accumulator.
 	OR    (IX+DD)   ;19 Logical OR of value at location (IX+DD) and accumulator.
 	OR    (IY+DD)   ;19 Logical OR of value at location (IY+DD) and accumulator.
 
 	OTDR            ;21,16 Perform an OUTD and repeat until B=0.
 	OTIR            ;21,16 Perform an OTI and repeat until B=0.
 ;	OUT   (C),r     ;12 Load output port (C) with register r.
+	OUT   (C),B     ;12 Load output port (C) with register r.
+	OUT   (C),C     ;12 Load output port (C) with register r.
+	OUT   (C),D     ;12 Load output port (C) with register r.
+	OUT   (C),E     ;12 Load output port (C) with register r.
+	OUT   (C),H     ;12 Load output port (C) with register r.
+	OUT   (C),L     ;12 Load output port (C) with register r.
 	OUT   (C),A     ;12 Load output port (C) with register r.
 	OUT   (n),A     ;11 Load output port (n) with accumulator.
 	OUTD            ;16 Load output port (C) with (HL), decrement HL and B.
@@ -538,14 +588,13 @@ TAG1:
 	RL    E
 	RL    H
 	RL    L
+	RL    (HL)      ;15 Rotate left through value at location (HL).
 	RL    A
 
-	RL    (HL)      ;15 Rotate left through value at location (HL).
 	RL    (IX+DD)   ;23 Rotate left through value at location (IX+DD).
 	RL    (IY+DD)   ;23 Rotate left through value at location (IY+DD).
 	RLA             ; 4 Rotate left accumulator through carry.
 
-	RLC   (HL)      ;15 Rotate location (HL) left circular.
 	RLC   (IX+DD)   ;23 Rotate location (IX+DD) left circular.
 	RLC   (IY+DD)   ;23 Rotate location (IY+DD) left circular.
 ;	RLC   r         ; 8 Rotate register r left circular.
@@ -555,6 +604,7 @@ TAG1:
 	RLC   E
 	RLC   H
 	RLC   L
+	RLC   (HL)      ;15 Rotate location (HL) left circular.
 	RLC   A
 
 	RLCA            ; 4 Rotate left circular accumulator.
@@ -567,9 +617,9 @@ TAG1:
 	RR    E
 	RR    H
 	RR    L
+	RR    (HL)      ;15 Rotate right through carry location (HL).
 	RR    A
 
-	RR    (HL)      ;15 Rotate right through carry location (HL).
 	RR    (IX+DD)   ;23 Rotate right through carry location (IX+DD).
 	RR    (IY+DD)   ;23 Rotate right through carry location (IY+DD).
 
@@ -582,9 +632,9 @@ TAG1:
 	RRC   E
 	RRC   H
 	RRC   L
+	RRC   (HL)      ;15 Rotate value at location (HL) right circular.
 	RRC   A
 
-	RRC   (HL)      ;15 Rotate value at location (HL) right circular.
 	RRC   (IX+DD)   ;23 Rotate value at location (IX+DD) right circular.
 	RRC   (IY+DD)   ;23 Rotate value at location (HL + DD) right circular.
 
@@ -645,9 +695,9 @@ TAG1:
 	SLA   E
 	SLA   H
 	SLA   L
+	SLA   (HL)     ;15 Shift value at location (HL) left arithmetic.
 	SLA   A
 
-	SLA   (HL)     ;15 Shift value at location (HL) left arithmetic.
 	SLA   (IX+DD)  ;23 Shift value at location (IX+DD) left arithmetic.
 	SLA   (IY+DD)  ;23 Shift value at location (IY+DD) left arithmetic.
 
@@ -658,9 +708,9 @@ TAG1:
 	SRA   E
 	SRA   H
 	SRA   L
+	SRA   (HL)     ;15 Shift value at location (HL) right arithmetic.
 	SRA   A
 
-	SRA   (HL)     ;15 Shift value at location (HL) right arithmetic.
 	SRA   (IX+DD)  ;23 Shift value at location (IX+DD) right arithmetic.
 	SRA   (IY+DD)  ;23 Shift value at location (IY+DD) right arithmetic.
 
@@ -671,9 +721,9 @@ TAG1:
 	SRL   E
 	SRL   H
 	SRL   L
+	SRL   (HL)     ;15 Shift value at location (HL) right logical.
 	SRL   A
 
-	SRL   (HL)     ;15 Shift value at location (HL) right logical.
 	SRL   (IX+DD)  ;23 Shift value at location (IX+DD) right logical.
 	SRL   (IY+DD)  ;23 Shift value at location (IY+DD) right logical.
 
@@ -684,10 +734,10 @@ TAG1:
 	SUB   E
 	SUB   H
 	SUB   L
+	SUB   (HL)     ; 7 Subtract location (HL) from accumulator.
 	SUB   A
 
 	SUB   n        ; 7 Subtract value n from accumulator.
-	SUB   (HL)     ; 7 Subtract location (HL) from accumulator.
 	SUB   (IX+DD)  ;19 Subtract location (IX+DD) from accumulator.
 	SUB   (IY+DD)  ;19 Subtract location (IY+DD) from accumulator.
 
@@ -698,10 +748,10 @@ TAG1:
 	XOR   E
 	XOR   H
 	XOR   L
+	XOR   (HL)     ; 7 Exclusive OR value at location (HL) and accumulator.
 	XOR   A
 
 	XOR   n        ; 7 Exclusive OR value n and accumulator.
-	XOR   (HL)     ; 7 Exclusive OR value at location (HL) and accumulator.
 	XOR   (IX+DD)  ;19 Exclusive OR value at location (IX+DD) and accumulator.
 	XOR   (IY+DD)  ;19 Exclusive OR value at location (IY+DD) and accumulator.
 
@@ -735,3 +785,4 @@ TAG1:
 	SLL   (IY+DD),L
 	SLL   (IY+DD)		;Shift value at location (IY+DD) left logical.
 	SLL   (IY+DD),A
+END:
