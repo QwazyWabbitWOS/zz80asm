@@ -2,7 +2,11 @@
 ;	TITLE 'Z80 Opcodes in Alphabetical Order'
 ;Z80 Opcode Listing
 ;Z-80 CPU Instruction Set
+
 ;new 14/feb 2000
+;Revised 05-May-2019 by Geoff Joy
+;Assembling with zz80asm.
+
 ;This page *was* located "http://www.geocities.com/SiliconValley/Peaks/3938/".
 ;It can now be found at "http://zed80.com/Z80-RETRO/Resources/Z80_Programming/Z80-Instructions.txt"
 
@@ -514,13 +518,13 @@ TAG1:
 	OR    (HL)      ; 7 Logical OR of value at location (HL) and accumulator.
 	OR    A
 
+	OR    (IX+DD)   ;19 Logical OR of value at location (IX+DD) and accumulator.
+	OR    (IY+DD)   ;19 Logical OR of value at location (IY+DD) and accumulator.
+
 ;	OR    n         ; 7 Logical OR of value n and accumulator.
 	OR    1
 	OR    0
 	OR    0FFH
-
-	OR    (IX+DD)   ;19 Logical OR of value at location (IX+DD) and accumulator.
-	OR    (IY+DD)   ;19 Logical OR of value at location (IY+DD) and accumulator.
 
 	OTDR            ;21,16 Perform an OUTD and repeat until B=0.
 	OTIR            ;21,16 Perform an OTI and repeat until B=0.
@@ -550,23 +554,98 @@ TAG1:
 	PUSH  AF        ;11 Load register pair AF onto stack.
 
 ;	RES   b,r       ; 8 Reset bit b of register r.
+	RES   0,B
 	RES   1,B
+	RES   2,B
+	RES   3,B
+	RES   4,B
+	RES   5,B
+	RES   6,B
+	RES   7,B
+
+	RES   0,C
+	RES   1,C
 	RES   2,C
+	RES   3,C
+	RES   4,C
+	RES   5,C
+	RES   6,C
+	RES   7,C
+
+	RES   0,D
+	RES   1,D
+	RES   2,D
 	RES   3,D
+	RES   4,D
+	RES   5,D
+	RES   6,D
+	RES   7,D
+
+	RES   0,E
+	RES   1,E
+	RES   2,E
+	RES   3,E
 	RES   4,E
+	RES   5,E
+	RES   6,E
+	RES   7,E
+
+	RES   0,H
+	RES   1,H
+	RES   2,H
+	RES   3,H
+	RES   4,H
 	RES   5,H
+	RES   6,H
+	RES   7,H
+
+	RES   0,L
+	RES   1,L
+	RES   2,L
+	RES   3,L
+	RES   4,L
+	RES   5,L
 	RES   6,L
 	RES   7,L
+
 	RES   0,A
+	RES   1,A
+	RES   2,A
+	RES   3,A
+	RES   4,A
+	RES   5,A
+	RES   6,A
+	RES   7,A
 
 ;	RES   b,(HL)    ;15 Reset bit b in value at location (HL).
+	RES   0,(HL)
 	RES   1,(HL)
+	RES   2,(HL)
+	RES   3,(HL)
+	RES   4,(HL)
+	RES   5,(HL)
+	RES   6,(HL)
+	RES   7,(HL)
 
 ;	RES   b,(IX+DD) ;23 Reset bit b in value at location (IX+DD).
+	RES   0,(IX+DD)
 	RES   1,(IX+DD)
+	RES   2,(IX+DD)
+	RES   3,(IX+DD)
+	RES   4,(IX+DD)
+	RES   5,(IX+DD)
+	RES   6,(IX+DD)
+	RES   7,(IX+DD)
 
 ;	RES   b,(IY+DD) ;23 Reset bit b in value at location (IY+DD).
+	RES   0,(IY+DD)
 	RES   1,(IY+DD)
+	RES   2,(IY+DD)
+	RES   3,(IY+DD)
+	RES   4,(IY+DD)
+	RES   5,(IY+DD)
+	RES   6,(IY+DD)
+	RES   7,(IY+DD)
 
 	RET             ;10 Return from subroutine.
 ;	RET   cc        ;11,5 Return from subroutine if condition cc is true.
@@ -595,8 +674,6 @@ TAG1:
 	RL    (IY+DD)   ;23 Rotate left through value at location (IY+DD).
 	RLA             ; 4 Rotate left accumulator through carry.
 
-	RLC   (IX+DD)   ;23 Rotate location (IX+DD) left circular.
-	RLC   (IY+DD)   ;23 Rotate location (IY+DD) left circular.
 ;	RLC   r         ; 8 Rotate register r left circular.
 	RLC   B
 	RLC   C
@@ -606,6 +683,9 @@ TAG1:
 	RLC   L
 	RLC   (HL)      ;15 Rotate location (HL) left circular.
 	RLC   A
+
+	RLC   (IX+DD)   ;23 Rotate location (IX+DD) left circular.
+	RLC   (IY+DD)   ;23 Rotate location (IY+DD) left circular.
 
 	RLCA            ; 4 Rotate left circular accumulator.
 	RLD             ;18 Rotate digit left and right between accumulator and (HL).
@@ -659,10 +739,12 @@ TAG1:
 	SBC   A,L
 	SBC   A,A
 
-	SBC   A,n       ; 7 Subtract value n from accumulator with carry.
 	SBC   A,(HL)    ; 7 Subtract value at location (HL) from accu. with carry.
 	SBC   A,(IX+DD) ;19 Subtract value at location (IX+DD) from accu. with carry.
 	SBC   A,(IY+DD) ;19 Subtract value at location (IY+DD) from accu. with carry.
+
+	SBC   A,n       ; 7 Subtract value n from accumulator with carry.
+
 	SBC   HL,BC     ;15 Subtract register pair BC from HL with carry.
 	SBC   HL,DE     ;15 Subtract register pair DE from HL with carry.
 	SBC   HL,HL     ;15 Subtract register pair HL from HL with carry.
@@ -681,13 +763,35 @@ TAG1:
 	SET   0,A
 
 ;	SET   b,(HL)    ;15 Set bit b of location (HL).
+	SET   0,(HL)
 	SET   1,(HL)
+	SET   2,(HL)
+	SET   3,(HL)
+	SET   4,(HL)
+	SET   5,(HL)
+	SET   6,(HL)
+	SET   7,(HL)
 
 ;	SET   b,(IX+DD) ;23 Set bit b of location (IX+DD).
+	SET   0,(IX+DD)
 	SET   1,(IX+DD)
+	SET   2,(IX+DD)
+	SET   3,(IX+DD)
+	SET   4,(IX+DD)
+	SET   5,(IX+DD)
+	SET   6,(IX+DD)
+	SET   7,(IX+DD)
 
 ;	SET   b,(IY+DD) ;23 Set bit b of location (IY+DD).
+	SET   0,(IY+DD)
 	SET   1,(IY+DD)
+	SET   2,(IY+DD)
+	SET   3,(IY+DD)
+	SET   4,(IY+DD)
+	SET   5,(IY+DD)
+	SET   6,(IY+DD)
+	SET   7,(IY+DD)
+
 ;	SLA   r         ; 8 Shift register r left arithmetic.
 	SLA   B
 	SLA   C
@@ -737,9 +841,10 @@ TAG1:
 	SUB   (HL)     ; 7 Subtract location (HL) from accumulator.
 	SUB   A
 
-	SUB   n        ; 7 Subtract value n from accumulator.
 	SUB   (IX+DD)  ;19 Subtract location (IX+DD) from accumulator.
 	SUB   (IY+DD)  ;19 Subtract location (IY+DD) from accumulator.
+
+	SUB   n        ; 7 Subtract value n from accumulator.
 
 ;	XOR   r        ; 4 Exclusive OR register r and accumulator.
 	XOR   B
@@ -751,9 +856,10 @@ TAG1:
 	XOR   (HL)     ; 7 Exclusive OR value at location (HL) and accumulator.
 	XOR   A
 
-	XOR   n        ; 7 Exclusive OR value n and accumulator.
 	XOR   (IX+DD)  ;19 Exclusive OR value at location (IX+DD) and accumulator.
 	XOR   (IY+DD)  ;19 Exclusive OR value at location (IY+DD) and accumulator.
+
+	XOR   n        ; 7 Exclusive OR value n and accumulator.
 
 ;Undocumented opcodes
 
