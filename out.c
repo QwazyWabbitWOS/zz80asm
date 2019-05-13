@@ -34,19 +34,19 @@ static int	chksum(void);
 static void	btoh(const unsigned char, char ** const);
 
 static char	*errmsg[] = {		/* error messages for asmerr() */
-	"illegal opcode",		/* 0 */
-	"illegal operand",		/* 1 */
-	"missing operand",		/* 2 */
-	"multiply defined symbol",	/* 3 */
-	"undefined symbol",		/* 4 */
-	"value out of range",		/* 5 */
-	"missing )",			/* 6 */
-	"missing string separator",	/* 7 */
-	"memory override",		/* 8 */
-	"missing IF",			/* 9 */
-	"IF nesting to deep",		/* 10 */
-	"missing ENDIF",		/* 11 */
-	"INCLUDE nesting to deep"	/* 12 */
+	"illegal opcode",           /* 0 */
+	"illegal operand",          /* 1 */
+	"missing operand",          /* 2 */
+	"multiply defined symbol",  /* 3 */
+	"undefined symbol",         /* 4 */
+	"value out of range",       /* 5 */
+	"missing )",                /* 6 */
+	"missing string separator", /* 7 */
+	"memory override",          /* 8 */
+	"missing IF",               /* 9 */
+	"IF nesting to deep",       /* 10 */
+	"missing ENDIF",            /* 11 */
+	"INCLUDE nesting to deep"   /* 12 */
 };
 
 #define MAXHEX 255			/* max num of bytes per hex record */
