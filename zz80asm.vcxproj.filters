@@ -52,7 +52,7 @@
     <None Include="README" />
     <None Include="BSDmakefile" />
     <None Include="GNUmakefile" />
-    <None Include="opcodes_alphabetic.asm" />
+    <None Include="opcodes.asm" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Motorola S Record.txt" />
