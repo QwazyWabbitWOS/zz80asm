@@ -196,6 +196,8 @@ get_type(const char * const s)
 			return (OPEBIN);
 		else if (*(s + strlen(s) - 1) == 'O')	/* octal number */
 			return (OPEOCT);
+		else if (*(s + strlen(s) - 1) == 'Q')	/* octal number */
+			return (OPEOCT);
 	} else if (*s == '-')		/* arithmetical operand - */
 		return (OPESUB);
 	else if (*s == '+')		/* arithmetical operand + */
