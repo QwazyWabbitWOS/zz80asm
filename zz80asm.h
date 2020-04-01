@@ -222,7 +222,7 @@ extern char	 *date;		/* the current date and time */
 extern int	 ops[OPCARRAY];	/* buffer for generated object code */
 
 extern uint8_t	 list_flag;	/* flag for option -l */
-extern uint8_t	 ver_flag;	/* flag for option -v */
+extern uint8_t	 verbose;	/* flag for option -v */
 extern uint8_t	 dump_flag;	/* flag for option -x */
 extern int	 pc;		/* program counter */
 extern uint8_t	 pass;		/* processed pass */

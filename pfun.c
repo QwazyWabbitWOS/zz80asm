@@ -301,13 +301,13 @@ op_misc(const int op_code)
 			*d++ = *p++;
 		*d = '\0';
 		if (pass == 1) {	/* PASS 1 */
-			if (ver_flag)
+			if (verbose)
 				fprintf(stdout, "   Include %s\n", fn);
 			p1_file(fn);
 		} else {		/* PASS 2 */
 			sd_flag = 2;
 			lst_line(0, 0);
-			if (ver_flag)
+			if (verbose)
 				fprintf(stdout, "   Include %s\n", fn);
 			p2_file(fn);
 		}
@@ -315,7 +315,7 @@ op_misc(const int op_code)
 		c_line = incl[incnest].inc_line;
 		srcfn = incl[incnest].inc_fn;
 		srcfp = incl[incnest].inc_fp;
-		if (ver_flag)
+		if (verbose)
 			fprintf(stdout, "   Resume  %s\n", srcfn);
 		if (list_flag && (pass == 2)) {
 			lst_header();

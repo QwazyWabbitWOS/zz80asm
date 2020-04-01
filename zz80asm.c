@@ -53,7 +53,7 @@ char		 operand[LINE_MAX];	/* buffer for operand */
 char		 *date;		/* the current date and time */
 
 uint8_t		 list_flag;	/* flag for option -l */
-uint8_t		 ver_flag;	/* flag for option -v */
+uint8_t		 verbose;	/* flag for option -v */
 uint8_t		 dump_flag;	/* flag for option -x */
 int		 pc;		/* program counter */
 uint8_t		 pass;		/* processed pass */
@@ -170,7 +170,7 @@ int main(int argc, char *argv[])
 	gencode = 1;
 	out_form = OUTHEX;	/* default object format */
 	dump_flag = 1;
-	ver_flag = 0;
+	verbose = 0;
 	iflevel = 0;		/* IF nesting level */
 	errfp = stdout;
 	datalen = 16;		/* default num of bytes/hex record */
@@ -186,7 +186,7 @@ int main(int argc, char *argv[])
 				exit(1);
 			}
 			break;
-		case 'f':
+		case 'f':	/* Specify the binary format */
 			switch (*optarg) {
 			case 'b':
 				out_form = OUTBIN;
@@ -202,12 +202,12 @@ int main(int argc, char *argv[])
 				exit(1);
 			}
 			break;
-		case 'l':
+		case 'l':	/* List file is produced */
 			if (optarg != '\0')
 				get_fn(lstfn, optarg, LSTEXT);
 			list_flag = 1;
 			break;
-		case 'o':
+		case 'o':	/* Override the output file name */
 			if (optarg == '\0') {
 				usage();
 				exit(1);
@@ -217,13 +217,13 @@ int main(int argc, char *argv[])
 			else
 				get_fn(objfn, optarg, OBJEXTBIN);
 			break;
-		case 's':
+		case 's':		/* Symbol table is produced */
 			switch (*optarg) {
 			case 'a':
-				sym_flag = 'a';
+				sym_flag = 'a';	/* Sort symbols by address */
 				break;
 			case 'n':
-				sym_flag = 'n';
+				sym_flag = 'n';	/* Sort by symbols name */
 				break;
 			default:
 				usage();
@@ -231,7 +231,7 @@ int main(int argc, char *argv[])
 			}
 			break;
 		case 'v':
-			ver_flag = 1;
+			verbose = 1;	/* Verbose output */
 			break;
 		case 'x':
 			dump_flag = 0;	/* Default is on; turn off. */
@@ -262,7 +262,7 @@ int main(int argc, char *argv[])
 		usage();
 		exit(1);
 	}
-	if (ver_flag)
+	if (verbose)
 		fprintf(stdout, "%s Release %s, %s\n", __progname, REL, COPYR);
 
 	time(&tt);
@@ -293,11 +293,11 @@ pass1(void)
 	pass = 1;
 	pc = 0;
 	fi = 0;
-	if (ver_flag)
+	if (verbose)
 		fprintf(stdout, "%s\n", "Pass 1");
 	open_o_files(infiles[fi]);
 	while (infiles[fi] != NULL) {
-		if (ver_flag)
+		if (verbose)
 			fprintf(stdout, "   Read    %s\n", infiles[fi]);
 		p1_file(infiles[fi]);
 		fi++;
@@ -376,18 +376,18 @@ pass2(void)
 	pass = 2;
 	pc = 0;
 	fi = 0;
-	if (ver_flag)
+	if (verbose)
 		fprintf(stdout, "%s\n", "Pass 2");
 	obj_header();
 	while (infiles[fi] != NULL) {
-		if (ver_flag)
+		if (verbose)
 			fprintf(stdout, "   Read    %s\n", infiles[fi]);
 		p2_file(infiles[fi]);
 		fi++;
 	}
 	obj_end();
 	fclose(objfp);
-	if (ver_flag)
+	if (verbose)
 		fprintf(stdout, "%d error(s)\n", errors);
 }
 
@@ -599,6 +599,7 @@ void
 fatal(enum fatal_type ft, const char * const arg)
 {
 	fprintf(errfp, "%s %s\n", errmsg[ft], arg);
+	fprintf(stderr, "%s %s\n", errmsg[ft], arg);
 	exit(1);
 }
 

@@ -53,6 +53,7 @@
     <None Include="BSDmakefile" />
     <None Include="GNUmakefile" />
     <None Include="opcodes.asm" />
+    <None Include=".travis.yml" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Motorola S Record.txt" />

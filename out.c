@@ -68,10 +68,17 @@ void
 asmerr(enum err_type et)
 {
 	if (pass == 1) {
-		fprintf(errfp, "Error in file: %s Line: %zu\n", srcfn, c_line);
+		fprintf(errfp, "\nError in file: %s Line: %zu\n", srcfn, c_line);
+		fprintf(errfp, "%s \n", line);
 		fprintf(errfp, "%s\n", errmsg[et]);
-	} else
+	}
+
+	if (verbose) {
+		fprintf(stdout, "\nError in file: %s Line: %zu \n", srcfn, c_line);
+		fprintf(stdout, "%s \n", line);
+		fprintf(stdout, "%s\n", errmsg[et]);
 		errnum = et;
+	}
 	errors++;
 }
 

@@ -120,6 +120,7 @@
     <ClInclude Include="zz80asm.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".travis.yml" />
     <None Include="BSDmakefile" />
     <None Include="GNUmakefile" />
     <None Include="opcodes.asm" />
