@@ -306,6 +306,7 @@ pass1(void)
 		fclose(objfp);
 		remove(objfn);
 		fprintf(errfp, "%d error(s)\n", errors);
+		fprintf(stdout, "%d error(s)\n", errors);
 		fatal(F_HALT, NULL);
 	}
 }
