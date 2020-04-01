@@ -304,7 +304,7 @@ pass1(void)
 	}
 	if (errors) {
 		fclose(objfp);
-		unlink(objfn);
+		remove(objfn);
 		fprintf(errfp, "%d error(s)\n", errors);
 		fatal(F_HALT, NULL);
 	}

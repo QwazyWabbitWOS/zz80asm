@@ -26,9 +26,10 @@
 #ifdef _WIN32
 #include <windows.h>
 #define PATH_MAX MAX_PATH
+
  /* Remap deprecated POSIX function names (C99) */
 #define strdup _strdup
-#define unlink _unlink
+
 #include "getopt.h"
 
 #if _MSC_VER > 1500
