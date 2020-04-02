@@ -2,31 +2,30 @@ PREFIX?=	/usr/local
 BINDIR?=	${PREFIX}/bin
 MANDIR?=	${PREFIX}/man/man
 
-PROG=		zz80asm
+PROG = zz80asm
+
+SRCS = zz80asm.c num.c out.c pfun.c rfun.c tab.c
 
 # flavors of Linux
 ifeq ($(shell uname),Linux)
-SRCS=		zz80asm.c num.c out.c pfun.c rfun.c tab.c
 CFLAGS += -DLINUX
 LIBTOOL = ldd
 endif
 
 # OS X wants to be Linux and FreeBSD too.
 ifeq ($(shell uname),Darwin)
-SRCS=		zz80asm.c num.c out.c pfun.c rfun.c tab.c
 LIBTOOL = otool
 endif
 
 CLFAGS+=	-g
-CFLAGS+=	-O2 -pipe
-#CFLAGS+=	-Wall -Werror -Wextra -Wformat=2 -Wstrict-prototypes
+CFLAGS+=	-std=c99 -O2 -pipe
 CFLAGS+=	-Wall -Werror -pedantic -Wextra -Wformat=2
-#CFLAGS+=	-Wmissing-declarations -pedantic -std=c99 -Wcast-qual
-#CFLAGS+=	-Wpointer-arith -Wuninitialized -Wmissing-prototypes
+CFLAGS+=	-Wmissing-declarations -Wmissing-prototypes
+#CFLAGS+=	-Wpointer-arith -Wcast-qual -Wstrict-prototypes
 #CFLAGS+=	-Wsign-compare -Wshadow -Wdeclaration-after-statement
 #CFLAGS+=	-Wfloat-equal -Wcast-align -Wundef -Wstrict-aliasing=2
 
-OBJS+=		${SRCS:.c=.o}
+OBJS+= ${SRCS:.c=.o}
 
 all: ${PROG} readme
 
