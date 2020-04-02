@@ -178,7 +178,7 @@ void NoFailOpenOutputFile(char *Flnm)
 } /* procedure OPENFILOUT */
 
 /* Adds an extension to a file name */
-void PutExtension(char *Flnm, char *Extension)
+void PutExtension(char *Flnm, char *extension)
 {
 	char        *Period;        /* location of period in file name */
 	boolean     Samename;
@@ -191,11 +191,11 @@ void PutExtension(char *Flnm, char *Extension)
 		*(Period) = '\0';
 
 	Samename = FALSE;
-	if (strcmp(Extension, Period + 1) == 0)
+	if (strcmp(extension, Period + 1) == 0)
 		Samename = TRUE;
 
 	strcat(Flnm, ".");
-	strcat(Flnm, Extension);
+	strcat(Flnm, extension);
 	if (Samename)
 	{
 		fprintf(stderr, "Input and output filenames (%s) are the same.", Flnm);
@@ -217,7 +217,7 @@ int main(int argc, char *argv[])
 	char *c, *p;
 
 	unsigned int Param;
-	unsigned int i;
+	size_t i;
 
 	/* Application specific */
 

@@ -20,11 +20,11 @@ endif
 CLFAGS+=	-g
 CFLAGS+=	-O2 -pipe
 #CFLAGS+=	-Wall -Werror -Wextra -Wformat=2 -Wstrict-prototypes
-CFLAGS+=	-Wall -Werror -Wextra -Wformat=2
-CFLAGS+=	-Wmissing-declarations -pedantic -std=c99 -Wcast-qual
-CFLAGS+=	-Wpointer-arith -Wuninitialized -Wmissing-prototypes
-CFLAGS+=	-Wsign-compare -Wshadow -Wdeclaration-after-statement
-CFLAGS+=	-Wfloat-equal -Wcast-align -Wundef -Wstrict-aliasing=2
+CFLAGS+=	-Wall -Werror -pedantic -Wextra -Wformat=2
+#CFLAGS+=	-Wmissing-declarations -pedantic -std=c99 -Wcast-qual
+#CFLAGS+=	-Wpointer-arith -Wuninitialized -Wmissing-prototypes
+#CFLAGS+=	-Wsign-compare -Wshadow -Wdeclaration-after-statement
+#CFLAGS+=	-Wfloat-equal -Wcast-align -Wundef -Wstrict-aliasing=2
 
 OBJS+=		${SRCS:.c=.o}
 

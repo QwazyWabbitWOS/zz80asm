@@ -275,6 +275,7 @@ int main(int argc, char *argv[])
 		len = copy_sym();
 		sort_sym(len, sym_flag);
 		lst_sort_sym(len);
+		fprintf(lstfp, "\n%zu symbols processed\n", len);
 	}
 	if (lstfp)
 		fclose(lstfp);
