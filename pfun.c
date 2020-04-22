@@ -90,7 +90,7 @@ op_equ(void)
 }
 
 /*
- *	DEFL
+ *	DEFL/DL define label as value
  */
 int
 op_dl(void)
@@ -172,7 +172,7 @@ hyp_error:
 }
 
 /*
- *	DEFM
+ *	DEFM/DM Define memory bytes
  */
 int
 op_dm(void)

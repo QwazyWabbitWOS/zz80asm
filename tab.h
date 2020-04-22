@@ -51,6 +51,8 @@ static struct opc opctab[] = {
 	{ "DEFW",	op_dw,		0,	0	},
 	{ "DI",		op_1b,		0xf3,	0	},
 	{ "DJNZ",	op_djnz,	0,	0	},
+	{ "DL",		op_dl,		0,	0	},
+	{ "DM",		op_dm,		0,	0	},
 	{ "DS",		op_ds,		0,	0	},
 	{ "DW",		op_dw,		0,	0	},
 	{ "EI",		op_1b,		0xfb,	0	},
