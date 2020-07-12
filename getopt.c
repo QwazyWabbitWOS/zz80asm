@@ -255,7 +255,7 @@ exchange(char** argv)
    If an element of ARGV starts with '-', and is not exactly "-" or "--",
    then it is an option element.  The characters of this element
    (aside from the initial '-') are option characters.  If `getopt'
-   is called repeatedly, it returns successively each of theoption characters
+   is called repeatedly, it returns successively each of the option characters
    from each of the option elements.
 
    If `getopt' finds another option character, it returns that character,

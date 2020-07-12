@@ -13,7 +13,7 @@
 ;	----   ---    ----------- ---
 ;	opcode         t-states   explanation
 
-	org	0000h
+	org	0100h
 DD	EQU	08H
 n	EQU	02H
 nn	EQU	0DEADH
@@ -867,11 +867,11 @@ TAG1:
 	SLL	B	       ;Equivalent: LD B, (2*B)+1 aka B = 2 * B + 1;
 	SLL	C
 	SLL	D
-	SLL E
-	SLL H
-	SLL L
-	SLL (HL)
-	SLL A
+	SLL	E
+	SLL	H
+	SLL	L
+	SLL	(HL)
+	SLL	A
 
 ;	SLL   (IX+DD),r	;23 Shift left logical at loctation (IX+DD) and store in register r
 	SLL   (IX+DD),B	;Equivalent: LD r, (2*(IX+DD))+1

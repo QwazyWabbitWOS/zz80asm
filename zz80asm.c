@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
 	errfp = stdout;
 	datalen = 16;		/* default num of bytes/hex record */
 
-
+	/* NOTE: -l switch doesn't take optarg as documented in README. */
 	while ((ch = getopt(argc, argv, "b:f:l::o:s:vx")) != -1) {
 		switch (ch) {
 		case 'b':
@@ -203,12 +203,18 @@ int main(int argc, char *argv[])
 			}
 			break;
 		case 'l':	/* List file is produced */
-			if (optarg != '\0')
+			/* FIXME: If -l is last switch before input file name the
+			   assembler fails with "no input file" listfile becomes
+			   mandatory on command line. DANGER! if multiple input files
+			   are specified the listing can overwrite the first input file! 
+			   Optional name is disabled in the optstring above.
+			   Assembler does not behave as specified in README. */
+			if (optarg && *optarg != '-') //optarg is not another switch
 				get_fn(lstfn, optarg, LSTEXT);
 			list_flag = 1;
 			break;
 		case 'o':	/* Override the output file name */
-			if (optarg == '\0') {
+			if (!optarg) {
 				usage();
 				exit(1);
 			}
@@ -276,6 +282,7 @@ int main(int argc, char *argv[])
 		sort_sym(len, sym_flag);
 		lst_sort_sym(len);
 		fprintf(lstfp, "\n%zu symbols processed\n", len);
+		fprintf(lstfp, "%s", date);
 	}
 	if (lstfp)
 		fclose(lstfp);
